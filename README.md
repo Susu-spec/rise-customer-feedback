@@ -40,9 +40,9 @@ A customer feedback dashboard that allows users to submit feedback and lets supp
     main.tsx
     dashboard-page/
       index.tsx
-    components/
-      feedback-form.tsx
-      confirmation-overlay.tsx
+      components/
+        feedback-form.tsx
+        confirmation-overlay.tsx
     hooks/
       useGet.hook.ts
       usePost.hook.ts
