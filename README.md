@@ -42,6 +42,8 @@ A customer feedback dashboard that allows users to submit feedback and lets supp
       index.tsx
       components/
         feedback-form.tsx
+        feedback-list.tsx
+        feedback-card.tsx
         confirmation-overlay.tsx
     hooks/
       useGet.hook.ts
