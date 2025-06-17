@@ -1,4 +1,4 @@
-# Customer Feedback Dashoard
+# Customer Feedback Dashboard
 
 A customer feedback dashboard that allows users to submit feedback and lets support agents view and filter submissions.
 
@@ -38,6 +38,12 @@ A customer feedback dashboard that allows users to submit feedback and lets supp
     global.css
     app.tsx
     main.tsx
+    assets/
+      avatar-group-logo.png
+      email-icon.svg
+      phone-icon.svg
+      report-icon.svg
+      rise-logo.png
     dashboard-page/
       index.tsx
       components/
@@ -48,4 +54,12 @@ A customer feedback dashboard that allows users to submit feedback and lets supp
     hooks/
       useGet.hook.ts
       usePost.hook.ts
+    types/
+      assets.d.ts
+      css.d.ts
 ```
+
+
+## Author
+
+- [@Susu-spec](https://github.com/Susu-spec)
