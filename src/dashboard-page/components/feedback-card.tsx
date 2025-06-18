@@ -20,7 +20,7 @@ export default function FeedbackCard({
         <div className="rounded-2xl bg-white p-3 flex flex-col items-center justify-center gap-2">
             <div className="w-full flex items-center gap-2">
                 <div className={`h-8 w-8 text-center bg-[${pair.background}] text-[${pair.text}]`}>
-                    {avatarSplit(name)}
+                    {avatarInitials(name)}
                 </div>
                 <p className="font-medium text-black">{name}</p>
             </div>
@@ -51,13 +51,14 @@ export default function FeedbackCard({
     )
 }
 
-function avatarSplit(name: string) {
-    let letters = [''];
-    const words = name.split(' ');
-    for (let i = 0; i < words.length; i++) {
-        letters[i] = words[i].charAt(0);
-    } 
-    return letters
+function avatarInitials(name: string): string {
+  const words = name.trim().split(/\s+/);
+  if (words.length === 0) return '';
+
+  const first = words[0].charAt(0);
+  const last = words[words.length - 1].charAt(0);
+
+  return (first + last).toUpperCase();
 }
 
 const colors = [
