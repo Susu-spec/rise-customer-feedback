@@ -1,12 +1,17 @@
 import { RiMailLine } from "@remixicon/react"
 import { useRef, useState, type FormEvent } from "react";
+import ConfirmationOverlay from "./confirmation-overlay";
 
-type FeedbackFormProp = {
+export type FeedbackFormProp = {
+    formOpen?: boolean,
     setFormOpen: (open: boolean) => void
 }
-export default function FeedbackForm({ setFormOpen }: FeedbackFormProp) {
+
+
+export default function FeedbackForm({ formOpen, setFormOpen }: FeedbackFormProp) {
     const formRef = useRef<HTMLFormElement>(null);
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     
     const handleInputChange = () => {
         if (formRef.current) {
@@ -21,11 +26,26 @@ export default function FeedbackForm({ setFormOpen }: FeedbackFormProp) {
         }
     }
 
+    const handleClose = () => {
+        formRef.current?.reset();
+        setFormOpen(false);
+        setIsSubmitted(false);
+    }
+
     return (
-        <div className="fixed inset-0 z-[100000] w-screen h-screen bg-[#000000]/30 backdrop-blur-[6px] flex justify-center items-center">
+        <div className={`fixed inset-0 z-[100000] w-screen h-screen 
+            bg-[#000000]/30 backdrop-blur-[6px] 
+            flex justify-center items-center
+            transition-opacity duration-500 ${
+            formOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}>
             <div className="relative">
-                {/* Set up check here */}
-                <div className="w-full px-6 max-w-[40.375rem] max-h-[19.5rem] flex flex-col gap-[1.75rem] rounded-2xl bg-[#F9FAFB] ">
+                {isSubmitted ? 
+                    <ConfirmationOverlay setFormOpen={setFormOpen} />
+                :
+                <div className={`w-full px-6 max-w-[40.375rem] 
+                    max-h-[19.5rem] flex flex-col gap-[1.75rem]
+                    rounded-2xl bg-[#F9FAFB]`}>
                     {/* Title */}
                     <div className="py-[1.75rem] w-full bg-white border-b border-[#EAECF0] flex gap-2">
                         <p className="text-2xl font-semibold">
@@ -89,7 +109,7 @@ export default function FeedbackForm({ setFormOpen }: FeedbackFormProp) {
                      <div className="py-[1.75rem] w-full bg-white border-t border-t-[#EAECF0] flex gap-[.625rem]">
                         <button 
                             type="button"
-                            onClick={() => setFormOpen(false)}
+                            onClick={handleClose}
                             className="w-full bg-[#F3F4F6] font-semibold text-[#006D79]">
                             Close
                         </button>
@@ -104,6 +124,7 @@ export default function FeedbackForm({ setFormOpen }: FeedbackFormProp) {
                         </button>
                      </div>
                 </div>
+                } 
             </div>
         </div>
     )
