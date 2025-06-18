@@ -1,21 +1,41 @@
 import { RiMailLine } from "@remixicon/react"
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import ConfirmationOverlay from "./confirmation-overlay";
+import { usePost } from "@/hooks/usePost.hook";
 
 type FeedbackFormProp = {
+    refetch: () => Promise<void>
     isVisible?: boolean,
     setIsVisible: (visible: boolean) => void,
     setFormOpen: (open: boolean) => void
 }
 
+type FeedbackFormData = {
+  name: string;
+  email: string;
+  type: string;
+  message: string;
+};
+
 
 export default function FeedbackForm(
-    { isVisible, setIsVisible, setFormOpen }: 
+    { refetch, isVisible, setIsVisible, setFormOpen }: 
     FeedbackFormProp
 ) {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const formRef = useRef<HTMLFormElement>(null);
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [formData, setFormData] = useState<FeedbackFormData>({
+        name: '',
+        email: '',
+        type: '',
+        message: '',
+    });
+
+    const { post, loading, error } = usePost(apiUrl);
+
     
     const handleInputChange = () => {
         if (formRef.current) {
@@ -23,22 +43,36 @@ export default function FeedbackForm(
         }
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async(e: FormEvent) => {
         e.preventDefault();
-        if (isFormValid) {
-            console.log("Form is valid and ready to submit");
-        }
-    }
+        if (!isFormValid) return;
 
-    const handleClose = () => {
-        formRef.current?.reset();
-        setIsSubmitted(false);
+        try {
+            await post(formData);
+            await refetch();
+            setIsSubmitted(true);
+        } catch (err) {
+            console.error("Submission failed in handleSubmit");
+        }
+    };
+
+   const handleClose = () => {
         setIsVisible(false);
 
         setTimeout(() => {
+            setIsSubmitted(false);
             setFormOpen(false);
+
+            setFormData({
+                name: '',
+                email: '',
+                type: '',
+                message: '',
+            });
+            formRef.current?.reset();
         }, 300);
     };
+
 
     useEffect(() => {
         if (isVisible) {
@@ -95,6 +129,9 @@ export default function FeedbackForm(
                             name="name"
                             aria-label="Enter full name"
                             required
+                            onChange={(e) =>
+                                setFormData({ ...formData, name: e.target.value })
+                            }
                             className="rounded-xl py-3 px-4 border border-[#EAECF0] bg-white focus-visible:border-[#98A2B3] outline-none"/>
 
                         <div className={`relative w-full flex bg-white 
@@ -111,6 +148,9 @@ export default function FeedbackForm(
                                 name="email"
                                 aria-label="Enter email"
                                 required
+                                onChange={(e) =>
+                                    setFormData({ ...formData, email: e.target.value })
+                                }
                                 className="rounded-xl w-full border focus:outline-none border-none pl-4"/>
                         </div>
 
@@ -120,6 +160,9 @@ export default function FeedbackForm(
                             required
                             aria-label="Enter feedback type"
                             defaultValue=""
+                            onChange={(e) =>
+                                setFormData({ ...formData, type: e.target.value })
+                            }
                             className="rounded-xl py-3 pl-4 pr-10 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
                         >
                             <option value="" disabled >Select feedback type</option>
@@ -135,8 +178,12 @@ export default function FeedbackForm(
                             required
                             aria-label="Enter feedback message"
                             placeholder="Enter feedback message..."
+                            onChange={(e) =>
+                                setFormData({ ...formData, message: e.target.value })
+                            }
                             className="rounded-xl py-3 px-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
                         />
+                        {error && <p className="text-sm text-red-500">Error submitting form. Retry.</p>}
                     </form>
 
                     {/* Buttons */}
@@ -151,16 +198,23 @@ export default function FeedbackForm(
                         </button>
                         <button 
                             form="feedbackForm" 
-                            className={`w-full rounded-4xl px-6 py-[.875rem] text-white font-semibold 
+                            className={`w-full rounded-4xl px-6 py-[.875rem] text-white font-semibold
+                                flex gap-2 items-center justify-center
                                 ${isFormValid ? 'bg-[#006D79]' : 'bg-[#9FDCE1]'}
                             `}
                             disabled={!isFormValid}
                             >
-                            Submit
+                                {loading ? 
+                                    <>
+                                        <span className="loader"></span>
+                                        Submitting
+                                    </> :
+                                    <span>Submit</span>
+                                }
                         </button>
                      </div>
                 </div>
-                } 
+            } 
             </div>
         </div>
     )
