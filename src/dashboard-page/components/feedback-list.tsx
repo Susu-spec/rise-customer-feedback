@@ -25,7 +25,12 @@ export default function FeedbackList() {
         setTimeout(() => setIsVisible(true), 10);
     };
 
-    const { data: feedbackMessages, loading, error } = useGet<FeedbackValueProp[]>(apiUrl);
+    const { 
+        data: feedbackMessages, 
+        loading, 
+        error, 
+        refetch 
+    } = useGet<FeedbackValueProp[]>(apiUrl);
 
     const filteredFeedback = feedbackMessages?.filter(item => {
         if (activeTab === "All feedback") return true;
@@ -56,7 +61,7 @@ export default function FeedbackList() {
     return (
         <>
             <div className="w-full flex flex-col gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between">
                     <div className="flex items-center justify-start gap-[.688rem]">
                         {filterButtons.map(({ text }, index) => (
                             <button 
@@ -82,11 +87,10 @@ export default function FeedbackList() {
                 </div>
 
                 {/* Pagination and list wrapper */}
-                
                 <div className="flex flex-col gap-4">
                     <div 
                         key={`${activeTab}-${currentPage}`}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-5 jusitify-between animate fade in"
+                        className="grid grid-cols-2 md:grid-cols-4 gap-5 jusitify-between animate fade-in"
                     >
                         <>
                             {loading && 
@@ -151,6 +155,7 @@ export default function FeedbackList() {
             {/* Feedback form */}
              {formOpen && 
                 <FeedbackForm 
+                    refetch={refetch}
                     isVisible={isVisible} 
                     setFormOpen={setFormOpen} 
                     setIsVisible={setIsVisible} 
