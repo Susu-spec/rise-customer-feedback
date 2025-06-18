@@ -1,5 +1,5 @@
 import { RiMailLine } from "@remixicon/react"
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import ConfirmationOverlay from "./confirmation-overlay";
 
 type FeedbackFormProp = {
@@ -40,9 +40,21 @@ export default function FeedbackForm(
         }, 300);
     };
 
+    useEffect(() => {
+        if (isVisible) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isVisible]);
+
     return (
         <div className={`fixed inset-0 z-[100000] w-screen h-screen 
-            bg-[#000000]/30 backdrop-blur-[6px] 
+           bg-black/40 backdrop-blur-md
             flex justify-center items-center
             transition-opacity duration-500 ${
             isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -51,11 +63,16 @@ export default function FeedbackForm(
                 {isSubmitted ? 
                     <ConfirmationOverlay handleClose={handleClose}/>
                 :
-                <div className={`w-full px-6 max-w-[40.375rem] 
-                    max-h-[19.5rem] flex flex-col gap-[1.75rem]
-                    rounded-2xl bg-[#F9FAFB]`}>
+                <div className={`w-full  max-w-[40.375rem] 
+                    max-h-fit flex flex-col gap-[1.75rem]
+                    rounded-2xl bg-[#F9FAFB] relative shadow-lg z-99`}
+                    onClick={(e) => e.stopPropagation()}>
+
                     {/* Title */}
-                    <div className="py-[1.75rem] w-full bg-white border-b border-[#EAECF0] flex gap-2">
+                    <div className={`py-[1.75rem] rounded-t-2xl 
+                        px-6 w-full bg-white border-b border-[#EAECF0] 
+                        flex flex-col gap-2`}
+                    >
                         <p className="text-2xl font-semibold">
                             What would you like to bring to our attention?
                         </p>
@@ -63,21 +80,28 @@ export default function FeedbackForm(
                             Kindly fill the details below to submit.
                         </p>
                     </div>
+
                     {/* Form */}
                     <form 
+                        id="feedbackForm"
                         ref={formRef}
                         onSubmit={handleSubmit}
                         onChange={handleInputChange}
-                        className="w-full text-[#747881] text-sm font-medium" id="feedbackForm">
+                        className="w-full text-[#747881] px-6 text-sm font-medium flex flex-col gap-4" 
+                    >
                         <input 
                             type="text"
                             placeholder="Full name"
                             name="name"
                             aria-label="Enter full name"
                             required
-                            className="rounded-xl py-3 px-4 border border-[#EAECF0]"/>
+                            className="rounded-xl py-3 px-4 border border-[#EAECF0] bg-white focus-visible:border-[#98A2B3] outline-none"/>
 
-                        <div className="relative w-full flex pl-4 py-3 pr-4 bg-white border-[#EAECF0] rounded-xl">
+                        <div className={`relative w-full flex bg-white 
+                            pl-4 py-3 pr-4 border border-[#EAECF0] 
+                            focus-visible:border-[#98A2B3] 
+                            outline-none rounded-xl`
+                        }>
                             <span className="flex items-center gap-2 px-3 space-x-3 border-r border-r-gray-200">
                                 <RiMailLine size={20} />
                             </span>
@@ -87,38 +111,42 @@ export default function FeedbackForm(
                                 name="email"
                                 aria-label="Enter email"
                                 required
-                                className="rounded-xl py-3 px-4 border focus:outline-none"/>
+                                className="rounded-xl w-full border focus:outline-none border-none pl-4"/>
                         </div>
+
                         {/* Select */}
                         <select
-                            name="feedbackType"
+                            name="type"
                             required
                             aria-label="Enter feedback type"
-                            className="rounded-xl py-3 px-4 border border-[#EAECF0]"
+                            defaultValue=""
+                            className="rounded-xl py-3 pl-4 pr-10 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
                         >
-                            <option value="" disabled selected>Select feedback type</option>
+                            <option value="" disabled >Select feedback type</option>
                             <option value="bug">Bug</option>
                             <option value="feature">Feature</option>
                             <option value="other">Other</option>
                         </select>
 
-                        {/* Text area message */}
+                        {/* Text area */}
                         <textarea
                             name="message"
                             rows={4}
                             required
                             aria-label="Enter feedback message"
                             placeholder="Enter feedback message..."
-                            className="rounded-xl py-3 px-4 border border-[#EAECF0]"
+                            className="rounded-xl py-3 px-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
                         />
                     </form>
 
                     {/* Buttons */}
-                     <div className="py-[1.75rem] w-full bg-white border-t border-t-[#EAECF0] flex gap-[.625rem]">
+                     <div className={`py-[1.75rem] px-6 rounded-b-2xl 
+                        w-full bg-white border-t border-t-[#EAECF0] 
+                        flex gap-[.625rem]`}>
                         <button 
                             type="button"
                             onClick={handleClose}
-                            className="w-full bg-[#F3F4F6] font-semibold text-[#006D79]">
+                            className="w-full rounded-4xl bg-[#F3F4F6] font-semibold text-[#006D79]">
                             Close
                         </button>
                         <button 
