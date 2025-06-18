@@ -5,6 +5,7 @@ export function usePost(url: string) {
     const [error, setError] = useState(null);
 
     const post = async(body: any) => {
+        setLoading(true);
         try {
             const res = await fetch(url, {
                 method: "POST",
@@ -13,7 +14,9 @@ export function usePost(url: string) {
             });
 
             if (!res.ok) throw new Error("POST request failed");
-                const result = await res.json();
+                const text = await res.text();
+                const result = text.startsWith("{") ? JSON.parse(text) : text;
+
                 return result;
         } catch (err: any) {
             setError(err);
