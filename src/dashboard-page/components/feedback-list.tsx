@@ -11,8 +11,13 @@ import { RiAddLine } from "@remixicon/react";
 export default function FeedbackList() {
     const [activeTab, setActiveTab] = useState('All feedback');
     const [formOpen, setFormOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
-    // Clicking on button filters the list of items
+    const handleOpen = () => {
+        setFormOpen(true);
+        setTimeout(() => setIsVisible(true), 10);
+    };
+
     return (
         <>
             <div className="w-full flex flex-col gap-4">
@@ -34,7 +39,7 @@ export default function FeedbackList() {
                         ))}
                     </div>
                     <button 
-                        onClick={() => setFormOpen(true)}
+                        onClick={handleOpen}
                         className="bg-[#006D79] px-6 py-[.875rem] flex gap-2 items-center rounded-4xl">
                             <RiAddLine size={24} color="white"/>
                             <span className="text-white">Submit feedback</span>
@@ -43,7 +48,7 @@ export default function FeedbackList() {
                 {/* Grid in four columns of cards */}
                 {/* Pagination to switch between pages based on number of cards(messages) */}
             </div>
-             {formOpen && <FeedbackForm setFormOpen={setFormOpen} />}
+             {formOpen && <FeedbackForm isVisible={isVisible} setFormOpen={setFormOpen} setIsVisible={setIsVisible} />}
         </>
     )
 }

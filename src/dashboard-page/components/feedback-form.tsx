@@ -2,13 +2,17 @@ import { RiMailLine } from "@remixicon/react"
 import { useRef, useState, type FormEvent } from "react";
 import ConfirmationOverlay from "./confirmation-overlay";
 
-export type FeedbackFormProp = {
-    formOpen?: boolean,
+type FeedbackFormProp = {
+    isVisible?: boolean,
+    setIsVisible: (visible: boolean) => void,
     setFormOpen: (open: boolean) => void
 }
 
 
-export default function FeedbackForm({ formOpen, setFormOpen }: FeedbackFormProp) {
+export default function FeedbackForm(
+    { isVisible, setIsVisible, setFormOpen }: 
+    FeedbackFormProp
+) {
     const formRef = useRef<HTMLFormElement>(null);
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -28,20 +32,24 @@ export default function FeedbackForm({ formOpen, setFormOpen }: FeedbackFormProp
 
     const handleClose = () => {
         formRef.current?.reset();
-        setFormOpen(false);
         setIsSubmitted(false);
-    }
+        setIsVisible(false);
+
+        setTimeout(() => {
+            setFormOpen(false);
+        }, 300);
+    };
 
     return (
         <div className={`fixed inset-0 z-[100000] w-screen h-screen 
             bg-[#000000]/30 backdrop-blur-[6px] 
             flex justify-center items-center
             transition-opacity duration-500 ${
-            formOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
             <div className="relative">
                 {isSubmitted ? 
-                    <ConfirmationOverlay setFormOpen={setFormOpen} />
+                    <ConfirmationOverlay handleClose={handleClose}/>
                 :
                 <div className={`w-full px-6 max-w-[40.375rem] 
                     max-h-[19.5rem] flex flex-col gap-[1.75rem]
