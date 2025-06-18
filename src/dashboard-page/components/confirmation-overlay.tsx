@@ -7,7 +7,7 @@ type FeedbackConfirmationProps = {
 export default function ConfirmationOverlay({ handleClose }: FeedbackConfirmationProps) {
 
     return (
-        <div className={`max-h-fit w-full px-6 
+        <div className={`max-h-fit w-full 
                 max-w-[40.375rem] max-h-[19.5rem] 
                 rounded-2xl bg-[#F9FAFB] 
                 flex flex-col gap-[2.25rem]
@@ -23,11 +23,11 @@ export default function ConfirmationOverlay({ handleClose }: FeedbackConfirmatio
                     </p>
                 </div>
             </div>
-            <div className="py-[1.75rem] w-full bg-white border-t border-t-[#EAECF0] flex gap-[.625rem]">
+            <div className="py-[1.75rem] px-6 rounded-b-2xl w-full bg-white border-t border-t-[#EAECF0] flex gap-[.625rem]">
                 <button 
                     type="button"
                     onClick={handleClose}
-                    className="w-full bg-[#F3F4F6] font-semibold text-[#006D79]">
+                    className="py-[.875rem] rounded-4xl w-full bg-[#F3F4F6] font-semibold text-[#006D79]">
                     Close
                 </button>
             </div>
