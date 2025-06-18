@@ -44,7 +44,7 @@ export default function FeedbackCard({
                 </div>
             }
             <div className="w-full flex items-center gap-2">
-                <img src={reportIcon} alt="Phone logo" />
+                <img src={reportIcon} alt="Report logo" />
                 <div className="flex flex-col gap-1">
                     <p className="text-black font-medium text-sm">
                         {type}

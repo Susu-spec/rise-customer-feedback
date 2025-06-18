@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import FeedbackForm from "./feedback-form";
-import { RiAddLine } from "@remixicon/react";
+import { RiAddLine, RiSearchLine } from "@remixicon/react";
 import useGet from "@/hooks/useGet.hook"
 import type { FeedbackValueProp } from "./feedback-card";
 import FeedbackCard from "./feedback-card";
@@ -19,6 +19,7 @@ export default function FeedbackList() {
     const [activeTab, setActiveTab] = useState('All feedback');
     const [formOpen, setFormOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleOpen = () => {
         setFormOpen(true);
@@ -37,7 +38,10 @@ export default function FeedbackList() {
         if (activeTab === "Bugs only") return item.type === "bug";
         if (activeTab === "Feature requests") return item.type === "feature";
         return false;
-    });
+    }).filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.message.toLowerCase().includes(searchTerm.toLowerCase())
+  );;
     
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 16;
@@ -62,25 +66,43 @@ export default function FeedbackList() {
         <>
             <div className="w-full flex flex-col gap-4">
                 <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between">
-                    <div className="flex items-center justify-start gap-[.688rem]">
-                        {filterButtons.map(({ text }, index) => (
-                            <button 
-                                key={index} 
-                                onClick={() => setActiveTab(text)}
-                                className={
-                                    `py-[.375rem] px-3 rounded-md text-sm border !cursor-pointer
-                                    ${activeTab === text ? 
-                                    'text-[#006D79] border-[#9FDCE1] bg-[#EDFFFF]' : 
-                                    'border-[#EAECF0] text-black bg-[#F9FAFB]'}`
-                                }
-                            >
-                                {text}
-                            </button>
-                        ))}
+                    <div className="w-full flex flex-col items-start gap-2 md:flex-row md:items-center">
+                        <div className="flex items-center justify-start gap-[.688rem]">
+                            {filterButtons.map(({ text }, index) => (
+                                <button 
+                                    key={index} 
+                                    onClick={() => setActiveTab(text)}
+                                    className={
+                                        `py-[.375rem] px-3 rounded-md text-sm border !cursor-pointer
+                                        ${activeTab === text ? 
+                                        'text-[#006D79] border-[#9FDCE1] bg-[#EDFFFF]' : 
+                                        'border-[#EAECF0] text-black bg-[#F9FAFB]'}`
+                                    }
+                                >
+                                    {text}
+                                </button>
+                            ))}
+                        </div>
+                        <div className={`relative w-full max-w-[24.5rem] flex bg-white 
+                            pl-4 py-3 pr-4 border border-[#EAECF0] 
+                            focus-visible:border-[#98A2B3] 
+                            outline-none rounded-xl`
+                        }>
+                            <span className="flex items-center gap-2 px-3 space-x-3 border-r border-r-gray-200">
+                                <RiSearchLine size={20} />
+                            </span>
+                            <input
+                                type="text"
+                                placeholder="Search feedback..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="rounded-xl w-full border focus:outline-none border-none pl-4"
+                        />
+                        </div>
                     </div>
                     <button 
                         onClick={handleOpen}
-                        className="bg-[#006D79] px-6 py-[.875rem] flex gap-2 items-center rounded-4xl">
+                        className="bg-[#006D79] px-6 py-[.875rem] flex gap-2 items-center rounded-4xl w-full max-w-[15rem]">
                             <RiAddLine size={24} color="white"/>
                             <span className="text-white font-semibold !cursor-pointer">Submit feedback</span>
                     </button>  
