@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-export function useGet(url: string, options = {}) {
-    const [data, setData] = useState(null);
+export default function useGet<T = any>(url: string, options = {}) {
+    const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<any | null>(null);
 
     const fetchData = async () => {
         setLoading(true);
