@@ -83,10 +83,12 @@ export default function FeedbackList() {
                                 </button>
                             ))}
                         </div>
-                        <div className={`relative w-full max-w-[24.5rem] flex bg-white 
-                            pl-4 py-3 pr-4 border border-[#EAECF0] 
-                            focus-visible:border-[#98A2B3] 
-                            outline-none rounded-xl`
+                        <div
+                            className={`relative w-full max-w-[24.5rem] flex bg-white 
+                                pl-4 py-3 pr-4 border border-[#EAECF0]  
+                                focus-within:border-[#98A2B3]
+                                focus-within:!border-2 
+                                outline-none rounded-xl`
                         }>
                             <span className="flex items-center gap-2 px-3 space-x-3 border-r border-r-gray-200">
                                 <RiSearchLine size={20} />

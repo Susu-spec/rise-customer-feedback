@@ -147,10 +147,12 @@ export default function FeedbackForm(
                         </div>
 
                         {/* Email Input */}
-                        <div className={`relative w-full flex bg-white 
-                            pl-3 py-3 pr-4 border border-[#EAECF0] 
-                            focus-visible:border-[#98A2B3] focus:border-[#98A2B3]
-                            outline-none rounded-xl`
+                        <div
+                            className={`relative w-full flex bg-white 
+                                pl-3 py-3 pr-4 border border-[#EAECF0]
+                                focus-within:border-[#98A2B3]
+                                focus-within:!border-2 
+                                outline-none rounded-xl`
                         }>
                             <span className="flex items-center gap-2 px-1 space-x-3 border-r border-r-gray-200">
                                 <RiMailLine size={20} color="#A8ACB3"/>
@@ -189,7 +191,8 @@ export default function FeedbackForm(
                                 }
                                 className={`appearance-none w-full rounded-xl py-3
                                     pl-3 pr-10 border border-[#EAECF0] !text-[#747881]
-                                    focus-visible:border-[#98A2B3] outline-none bg-white
+                                    focus:border-[#98A2B3] focus-visible:outline-none
+                                    focus-visible:ring-2 focus-visible:ring-[#98A2B3] bg-white
                                     ${formData.type === '' ? 'text-[#747881]' : '!text-black'}`}
                                 >
                                     <option value="" disabled>Select feedback type</option>
@@ -224,7 +227,7 @@ export default function FeedbackForm(
                                 onChange={(e) =>
                                     setFormData({ ...formData, message: e.target.value })
                                 }
-                                className="rounded-xl w-full font-medium py-3 pl-3 pr-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
+                                className="rounded-xl w-full font-medium py-3 pl-3 pr-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] focus-visible:border-2 outline-none bg-white"
                             />
                             {formData.message !== '' &&
                                 <label
