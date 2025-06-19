@@ -97,20 +97,20 @@ export default function FeedbackForm(
                 {isSubmitted ? 
                     <ConfirmationOverlay handleClose={handleClose}/>
                 :
-                <div className={`w-full min-w-[40.375rem] 
-                    max-h-fit flex flex-col gap-[1.75rem]
+                <div className={`w-full max-w-[90dvw] md:min-w-[40.375rem] 
+                    max-h-full md:max-h-fit flex flex-col gap-[1.75rem]
                     rounded-2xl bg-[#F9FAFB] relative shadow-lg z-99`}
                     onClick={(e) => e.stopPropagation()}>
 
                     {/* Title */}
-                    <div className={`py-[1.75rem] rounded-t-2xl 
+                    <div className={`py-5 md:py-[1.75rem] rounded-t-2xl 
                         px-6 w-full bg-white border-b border-[#EAECF0] 
                         flex flex-col gap-2`}
                     >
-                        <p className="text-2xl font-semibold">
+                        <p className="text-xl md:text-2xl font-semibold">
                             What would you like to bring to our attention?
                         </p>
-                        <p className="text-sm text-[#555B64]">
+                        <p className="text-xs md:text-sm text-[#555B64]">
                             Kindly fill the details below to submit.
                         </p>
                     </div>
@@ -134,11 +134,16 @@ export default function FeedbackForm(
                                 onChange={(e) =>
                                     setFormData({ ...formData, name: e.target.value })
                                 }
-                                className="rounded-xl w-full font-medium py-3 pl-3 pr-4 border border-[#EAECF0] bg-white focus-visible:border-[#98A2B3] outline-none"/>
+                                className={`rounded-xl w-full font-medium py-3 
+                                    pl-3 pr-4 border border-[#EAECF0] bg-white 
+                                    focus-visible:border-[#98A2B3] 
+                                    focus-visible:border-2 outline-none`}/>
                             {formData.name !== '' &&
                                 <label
                                     htmlFor="name"
-                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                    className={`bg-[#F9FAFB] absolute 
+                                        left-4 top-[-10px] text-sm text-[#667085] 
+                                        px-1 z-2 text-xs`}
                                 >
                                     Full name
                                 </label>
@@ -171,7 +176,9 @@ export default function FeedbackForm(
                             {formData.email !== '' && 
                                 <label
                                     htmlFor="email"
-                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                    className={`bg-[#F9FAFB] absolute 
+                                            left-4 top-[-10px] text-sm text-[#667085] 
+                                            px-1 z-2 text-xs`}
                                 >
                                     Email
                                 </label>
@@ -192,7 +199,7 @@ export default function FeedbackForm(
                                 className={`appearance-none w-full rounded-xl py-3
                                     pl-3 pr-10 border border-[#EAECF0] !text-[#747881]
                                     focus:border-[#98A2B3] focus-visible:outline-none
-                                    focus-visible:ring-2 focus-visible:ring-[#98A2B3] bg-white
+                                    focus:border-2 bg-white
                                     ${formData.type === '' ? 'text-[#747881]' : '!text-black'}`}
                                 >
                                     <option value="" disabled>Select feedback type</option>
@@ -207,7 +214,9 @@ export default function FeedbackForm(
                             {formData.type !== '' &&
                                 <label
                                     htmlFor="type"
-                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                    className={`bg-[#F9FAFB] absolute 
+                                        left-4 top-[-10px] text-sm text-[#667085] 
+                                        px-1 z-2 text-xs`}
                                 >
                                     Feedback type
                                 </label>
@@ -227,12 +236,17 @@ export default function FeedbackForm(
                                 onChange={(e) =>
                                     setFormData({ ...formData, message: e.target.value })
                                 }
-                                className="rounded-xl w-full font-medium py-3 pl-3 pr-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] focus-visible:border-2 outline-none bg-white"
+                                className={`rounded-xl w-full font-medium 
+                                    py-3 pl-3 pr-4 border border-[#EAECF0] 
+                                    focus-visible:border-[#98A2B3] 
+                                    focus-visible:!border-2 outline-none bg-white`}
                             />
                             {formData.message !== '' &&
                                 <label
                                     htmlFor="message"
-                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                    className={`bg-[#F9FAFB] absolute 
+                                        left-4 top-[-10px] text-sm text-[#667085] 
+                                        px-1 z-2 text-xs`}
                                 >
                                     Feedback message
                                 </label>
@@ -244,18 +258,18 @@ export default function FeedbackForm(
                     </form>
 
                     {/* Buttons */}
-                     <div className={`py-[1.75rem] px-6 rounded-b-2xl 
+                     <div className={`py-5 md:py-[1.75rem] px-6 rounded-b-2xl 
                         w-full bg-white border-t border-t-[#EAECF0] 
                         flex gap-[.625rem]`}>
                         <button 
                             type="button"
                             onClick={handleClose}
-                            className="w-full rounded-4xl bg-[#F3F4F6] font-semibold text-[#006D79]">
+                            className="w-full rounded-4xl px-6 bg-[#F3F4F6] font-semibold text-[#006D79]">
                             Close
                         </button>
                         <button 
                             form="feedbackForm" 
-                            className={`w-full rounded-4xl px-6 py-[.875rem] text-white font-semibold
+                            className={`w-full rounded-4xl px-6 py-3 md:py-[.875rem] text-white font-semibold
                                 flex gap-2 items-center justify-center
                                 ${isFormValid ? 'bg-[#006D79]' : 'bg-[#9FDCE1]'}
                             `}

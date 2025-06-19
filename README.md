@@ -52,7 +52,7 @@ A customer feedback dashboard that allows users to submit feedback and lets supp
         feedback-card.tsx
         confirmation-overlay.tsx
         left-arrow.tsx
-        right-arrow.ts
+        right-arrow.tsx
     hooks/
       useGet.hook.ts
       usePost.hook.ts

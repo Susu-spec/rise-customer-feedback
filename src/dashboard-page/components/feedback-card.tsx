@@ -17,28 +17,36 @@ export default function FeedbackCard({
     const pair = colors[getRandomInt(0, colors.length - 1)];
 
     return (
-        <div className="rounded-2xl bg-white border border-[#EAECF0] p-3 flex flex-col items-center justify-center gap-2">
+        <div className={`
+            w-full rounded-2xl bg-white border 
+            border-[#EAECF0] p-3 flex flex-col 
+            items-center justify-center gap-2`}>
             <div className="w-full flex items-center gap-2">
-                <div className={`h-8 w-8 text-center rounded-[50%] font-medium flex items-center justify-center`}
-                    style={{
+                <div 
+                    className={`
+                        h-8 w-8 text-center rounded-[50%] 
+                        font-medium flex items-center justify-center`}
+                        style={{
                         backgroundColor: pair.background,
                         color: pair.text,
                     }}
                 >
                     {avatarInitials(name)}
                 </div>
-                <p className="font-medium text-black truncate max-w-[20rem] capitalize">{name}</p>
+                <p className="font-medium text-black text-sm md:text-base truncate max-w-[20rem] capitalize">
+                    {name}
+                </p>
             </div>
             <div className="w-full flex items-center gap-2">
                 <img src={emailIcon} alt="Email logo" />
-                <p className="text-[#555B64] text-sm truncate max-w-[20rem]">
+                <p className="text-[#555B64] text-xs md:text-sm truncate max-w-[20rem]">
                     {email}
                 </p>
             </div>
             {number && 
                 <div className="w-full flex items-center gap-2">
                     <img src={phoneIcon} alt="Phone logo" />
-                    <p className="text-[#555B64] text-sm">
+                    <p className="text-[#555B64] text-xs md:text-sm">
                         {number}
                     </p>
                 </div>
@@ -46,10 +54,10 @@ export default function FeedbackCard({
             <div className="w-full flex items-center gap-2">
                 <img src={reportIcon} alt="Report logo" />
                 <div className="flex flex-col gap-1">
-                    <p className="text-black font-medium text-sm">
+                    <p className="text-black font-medium text-xs md:text-sm">
                         {type}
                     </p>
-                    <p className="text-[#555B64] text-sm">
+                    <p className="text-[#555B64] text-xs md:text-sm">
                         {message}
                     </p>
                 </div>  

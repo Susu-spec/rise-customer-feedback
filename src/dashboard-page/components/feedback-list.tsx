@@ -38,9 +38,13 @@ export default function FeedbackList() {
         if (activeTab === "Bugs only") return item.type === "bug";
         if (activeTab === "Feature requests") return item.type === "feature";
         return false;
-    }).filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.message.toLowerCase().includes(searchTerm.toLowerCase())
+    }).filter((item) => {
+        if (!searchTerm.trim()) return true;
+        return (
+            item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.message?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }
   );;
     
     const [currentPage, setCurrentPage] = useState(1);
@@ -66,14 +70,15 @@ export default function FeedbackList() {
         <>
             <div className="w-full flex flex-col gap-4">
                 <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between">
-                    <div className="w-full flex flex-col items-start gap-2 md:flex-row md:items-center">
+                    <div className="w-full flex flex-col items-start gap-4 md:flex-row md:items-center">
                         <div className="flex items-center justify-start gap-[.688rem]">
                             {filterButtons.map(({ text }, index) => (
                                 <button 
                                     key={index} 
                                     onClick={() => setActiveTab(text)}
                                     className={
-                                        `py-[.375rem] px-3 rounded-md text-sm border !cursor-pointer
+                                        `py-[.375rem] px-2 md:px-3 rounded-md text-xs 
+                                        md:text-sm border !cursor-pointer
                                         ${activeTab === text ? 
                                         'text-[#006D79] border-[#9FDCE1] bg-[#EDFFFF]' : 
                                         'border-[#EAECF0] text-black bg-[#F9FAFB]'}`
@@ -97,16 +102,18 @@ export default function FeedbackList() {
                                 type="text"
                                 placeholder="Search feedback..."
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="rounded-xl w-full border focus:outline-none border-none pl-4"
+                                onChange={(e) => {setSearchTerm(e.target.value); console.log(paginatedFeedback)}}
+                                className="rounded-xl w-full border focus:outline-none border-none pl-4 text-sm md:text-base"
                         />
                         </div>
                     </div>
                     <button 
                         onClick={handleOpen}
-                        className="bg-[#006D79] px-6 py-[.875rem] flex gap-2 items-center rounded-4xl w-full max-w-[15rem]">
+                        className="bg-[#006D79] px-6 py-2 md:py-[.875rem] flex gap-2 items-center rounded-4xl w-full max-w-fit">
                             <RiAddLine size={24} color="white"/>
-                            <span className="text-white font-semibold !cursor-pointer">Submit feedback</span>
+                            <span className="text-white text-sm md:text-base font-semibold whitespace-nowrap !cursor-pointer w-full">
+                                Submit new feedback
+                            </span>
                     </button>  
                 </div>
 
@@ -114,7 +121,7 @@ export default function FeedbackList() {
                 <div className="flex flex-col gap-4">
                     <div 
                         key={`${activeTab}-${currentPage}`}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-5 jusitify-between animate fade-in"
+                        className="grid grid-cols-1 md:grid-cols-4 gap-5 jusitify-between animate fade-in"
                     >
                         <>
                             {loading && 
@@ -131,7 +138,10 @@ export default function FeedbackList() {
                                 <p className="col-span-full text-sm text-gray-400">No feedback found.</p>
                             )}
                             {paginatedFeedback?.map(({ name, email, number, message, type }, index) => (  
-                                <div key={index} className="w-full transition-opacity duration-300 ease-in-out hover:opacity-90">
+                                <div 
+                                    key={index} 
+                                    className="w-full transition-opacity duration-300 ease-in-out hover:opacity-90"
+                                >
                                     <FeedbackCard
                                         name={name}
                                         email={email}
@@ -163,8 +173,12 @@ export default function FeedbackList() {
                                 </button>
                                 <button 
                                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                                        className={`py-[.375rem] px-3 border border-[#EAECF0] rounded-full transition ${
-                                            currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-100'
+                                        className={`py-[.375rem] px-3 
+                                            border border-[#EAECF0] 
+                                            rounded-full transition ${
+                                            currentPage === totalPages ? 
+                                            'text-gray-300 cursor-not-allowed' : 
+                                            'text-gray-700 hover:bg-gray-100'
                                         }`}
                                     disabled={currentPage === totalPages}
                                 >
