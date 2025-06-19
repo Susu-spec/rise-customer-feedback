@@ -27,7 +27,7 @@ export default function ConfirmationOverlay({ handleClose }: FeedbackConfirmatio
                 <button 
                     type="button"
                     onClick={handleClose}
-                    className="py-[.875rem] rounded-4xl w-full bg-[#F3F4F6] font-semibold text-[#006D79]">
+                    className="mx-auto py-[.875rem] rounded-4xl w-full max-w-[21.625rem] bg-[#F3F4F6] font-semibold text-[#006D79]">
                     Close
                 </button>
             </div>

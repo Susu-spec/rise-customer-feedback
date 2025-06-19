@@ -134,7 +134,7 @@ export default function FeedbackForm(
                                 onChange={(e) =>
                                     setFormData({ ...formData, name: e.target.value })
                                 }
-                                className="rounded-xl w-full font-medium py-3 px-4 border border-[#EAECF0] bg-white focus-visible:border-[#98A2B3] outline-none"/>
+                                className="rounded-xl w-full font-medium py-3 pl-3 pr-4 border border-[#EAECF0] bg-white focus-visible:border-[#98A2B3] outline-none"/>
                             {formData.name !== '' &&
                                 <label
                                     htmlFor="name"
@@ -188,7 +188,7 @@ export default function FeedbackForm(
                                     setFormData({ ...formData, type: e.target.value })
                                 }
                                 className={`appearance-none w-full rounded-xl py-3
-                                    pl-4 pr-10 border border-[#EAECF0] !text-[#747881]
+                                    pl-3 pr-10 border border-[#EAECF0] !text-[#747881]
                                     focus-visible:border-[#98A2B3] outline-none bg-white
                                     ${formData.type === '' ? 'text-[#747881]' : '!text-black'}`}
                                 >
@@ -224,7 +224,7 @@ export default function FeedbackForm(
                                 onChange={(e) =>
                                     setFormData({ ...formData, message: e.target.value })
                                 }
-                                className="rounded-xl w-full font-medium py-3 px-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
+                                className="rounded-xl w-full font-medium py-3 pl-3 pr-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
                             />
                             {formData.message !== '' &&
                                 <label
