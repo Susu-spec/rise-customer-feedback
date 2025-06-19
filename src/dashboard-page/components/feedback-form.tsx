@@ -97,7 +97,7 @@ export default function FeedbackForm(
                 {isSubmitted ? 
                     <ConfirmationOverlay handleClose={handleClose}/>
                 :
-                <div className={`w-full  max-w-[40.375rem] 
+                <div className={`w-full min-w-[40.375rem] 
                     max-h-fit flex flex-col gap-[1.75rem]
                     rounded-2xl bg-[#F9FAFB] relative shadow-lg z-99`}
                     onClick={(e) => e.stopPropagation()}>

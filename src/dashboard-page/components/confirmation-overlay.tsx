@@ -8,7 +8,7 @@ export default function ConfirmationOverlay({ handleClose }: FeedbackConfirmatio
 
     return (
         <div className={`max-h-fit w-full 
-                max-w-[40.375rem] max-h-[19.5rem] 
+                min-w-[40.375rem] max-h-[19.5rem] 
                 rounded-2xl bg-[#F9FAFB] 
                 flex flex-col gap-[2.25rem]
                 pt-[3.75rem]`}>
