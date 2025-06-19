@@ -1,4 +1,4 @@
-import { RiMailLine } from "@remixicon/react"
+import { RiArrowDownSLine, RiMailLine } from "@remixicon/react"
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import ConfirmationOverlay from "./confirmation-overlay";
 import { usePost } from "@/hooks/usePost.hook";
@@ -121,68 +121,122 @@ export default function FeedbackForm(
                         ref={formRef}
                         onSubmit={handleSubmit}
                         onChange={handleInputChange}
-                        className="w-full text-[#747881] px-6 text-sm font-medium flex flex-col gap-4" 
+                        className="w-full px-6 text-sm font-medium flex flex-col gap-4" 
                     >
-                        <input 
-                            type="text"
-                            placeholder="Full name"
-                            name="name"
-                            aria-label="Enter full name"
-                            required
-                            onChange={(e) =>
-                                setFormData({ ...formData, name: e.target.value })
+                        <div className="relative w-full">
+                            <input 
+                                type="text"
+                                placeholder="Full name"
+                                name="name"
+                                id="name"
+                                aria-label="Enter full name"
+                                required
+                                onChange={(e) =>
+                                    setFormData({ ...formData, name: e.target.value })
+                                }
+                                className="rounded-xl w-full font-medium py-3 px-4 border border-[#EAECF0] bg-white focus-visible:border-[#98A2B3] outline-none"/>
+                            {formData.name !== '' &&
+                                <label
+                                    htmlFor="name"
+                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                >
+                                    Full name
+                                </label>
                             }
-                            className="rounded-xl py-3 px-4 border border-[#EAECF0] bg-white focus-visible:border-[#98A2B3] outline-none"/>
 
+                        </div>
+
+                        {/* Email Input */}
                         <div className={`relative w-full flex bg-white 
-                            pl-4 py-3 pr-4 border border-[#EAECF0] 
-                            focus-visible:border-[#98A2B3] 
+                            pl-3 py-3 pr-4 border border-[#EAECF0] 
+                            focus-visible:border-[#98A2B3] focus:border-[#98A2B3]
                             outline-none rounded-xl`
                         }>
-                            <span className="flex items-center gap-2 px-3 space-x-3 border-r border-r-gray-200">
-                                <RiMailLine size={20} />
+                            <span className="flex items-center gap-2 px-1 space-x-3 border-r border-r-gray-200">
+                                <RiMailLine size={20} color="#A8ACB3"/>
                             </span>
-                             <input
-                                type="text"
+                            <input
+                                type="email"
                                 placeholder="Enter email"
                                 name="email"
+                                id="email"
                                 aria-label="Enter email"
                                 required
                                 onChange={(e) =>
                                     setFormData({ ...formData, email: e.target.value })
                                 }
-                                className="rounded-xl w-full border focus:outline-none border-none pl-4"/>
+                                className="rounded-xl w-full border outline-none border-none pl-2 font-medium"/>
+                            {formData.email !== '' && 
+                                <label
+                                    htmlFor="email"
+                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                >
+                                    Email
+                                </label>
+                            }
                         </div>
 
                         {/* Select */}
-                        <select
-                            name="type"
-                            required
-                            aria-label="Enter feedback type"
-                            defaultValue=""
-                            onChange={(e) =>
-                                setFormData({ ...formData, type: e.target.value })
+                        <div className="relative w-full">
+                            <select
+                                id="type"
+                                name="type"
+                                required
+                                aria-label="Enter feedback type"
+                                defaultValue=""
+                                onChange={(e) =>
+                                    setFormData({ ...formData, type: e.target.value })
+                                }
+                                className={`appearance-none w-full rounded-xl py-3
+                                    pl-4 pr-10 border border-[#EAECF0] !text-[#747881]
+                                    focus-visible:border-[#98A2B3] outline-none bg-white
+                                    ${formData.type === '' ? 'text-[#747881]' : '!text-black'}`}
+                                >
+                                    <option value="" disabled>Select feedback type</option>
+                                    <option value="bug">Bug</option>
+                                    <option value="feature">Feature</option>
+                                    <option value="other">Other</option>
+                            </select>
+                            <RiArrowDownSLine 
+                                size={20} 
+                                color="#747881"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"/>
+                            {formData.type !== '' &&
+                                <label
+                                    htmlFor="type"
+                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                >
+                                    Feedback type
+                                </label>
                             }
-                            className="rounded-xl py-3 pl-4 pr-10 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
-                        >
-                            <option value="" disabled >Select feedback type</option>
-                            <option value="bug">Bug</option>
-                            <option value="feature">Feature</option>
-                            <option value="other">Other</option>
-                        </select>
+                        </div>
+
 
                         {/* Text area */}
-                        <textarea
-                            name="message"
-                            rows={4}
-                            required
-                            aria-label="Enter feedback message"
-                            placeholder="Enter feedback message..."
-                            onChange={(e) =>
-                                setFormData({ ...formData, message: e.target.value })
+                        <div className="relative w-full">
+                            <textarea
+                                name="message"
+                                id="message"
+                                rows={4}
+                                required
+                                aria-label="Enter feedback message"
+                                placeholder="Enter feedback message..."
+                                onChange={(e) =>
+                                    setFormData({ ...formData, message: e.target.value })
+                                }
+                                className="rounded-xl w-full font-medium py-3 px-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
+                            />
+                            {formData.message !== '' &&
+                                <label
+                                    htmlFor="message"
+                                    className="bg-[#F9FAFB] absolute left-4 top-[-10px] text-sm text-[#667085] px-1 z-2 text-xs"
+                                >
+                                    Feedback message
+                                </label>
                             }
-                            className="rounded-xl py-3 px-4 border border-[#EAECF0] focus-visible:border-[#98A2B3] outline-none bg-white"
-                        />
+
+                        </div>
+                        
                         {error && <p className="text-sm text-red-500">Error submitting form. Retry.</p>}
                     </form>
 
