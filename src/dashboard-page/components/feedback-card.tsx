@@ -20,7 +20,7 @@ export default function FeedbackCard({
         <div className={`
             w-full rounded-2xl bg-white border 
             border-[#EAECF0] p-3 flex flex-col 
-            items-center justify-center gap-2`}>
+            items-center justify-center`}>
             <div className="w-full flex items-center gap-2">
                 <div 
                     className={`
@@ -37,25 +37,25 @@ export default function FeedbackCard({
                     {name}
                 </p>
             </div>
-            <div className="w-full flex items-center gap-2">
+            <div className="w-full flex items-center gap-2 py-[.375rem]">
                 <img src={emailIcon} alt="Email logo" />
                 <p className="text-[#555B64] text-xs md:text-sm truncate max-w-[20rem]">
                     {email}
                 </p>
             </div>
             {number && 
-                <div className="w-full flex items-center gap-2">
+                <div className="w-full flex items-center gap-2 py-[.375rem]">
                     <img src={phoneIcon} alt="Phone logo" />
                     <p className="text-[#555B64] text-xs md:text-sm">
                         {number}
                     </p>
                 </div>
             }
-            <div className="w-full flex items-center gap-2">
+            <div className="w-full flex items-start gap-2 py-[.375rem]">
                 <img src={reportIcon} alt="Report logo" />
                 <div className="flex flex-col gap-1">
                     <p className="text-black font-medium text-xs md:text-sm">
-                        {type}
+                        {setType(type)}
                     </p>
                     <p className="text-[#555B64] text-xs md:text-sm">
                         {message}
@@ -64,6 +64,12 @@ export default function FeedbackCard({
             </div>
         </div>
     )
+}
+
+function setType(type: "bug" | "feature" | "other"): string {
+    if (type === "feature") return "Features";
+    if (type === "bug") return "Bugs";
+    return "Other";
 }
 
 function avatarInitials(name: string): string {
