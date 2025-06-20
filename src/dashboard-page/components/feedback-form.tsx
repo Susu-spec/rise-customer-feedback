@@ -97,20 +97,20 @@ export default function FeedbackForm(
                 {isSubmitted ? 
                     <ConfirmationOverlay handleClose={handleClose}/>
                 :
-                <div className={`w-full max-w-[90dvw] md:min-w-[40.375rem] 
-                    max-h-full md:max-h-fit flex flex-col gap-[1.75rem]
+                <div className={`w-full max-w-[90dvw] sm:min-w-[40.375rem] 
+                    max-h-full sm:max-h-fit flex flex-col gap-[1.75rem]
                     rounded-2xl bg-[#F9FAFB] relative shadow-lg z-99`}
                     onClick={(e) => e.stopPropagation()}>
 
                     {/* Title */}
-                    <div className={`py-5 md:py-[1.75rem] rounded-t-2xl 
+                    <div className={`py-5 sm:py-[1.75rem] rounded-t-2xl 
                         px-6 w-full bg-white border-b border-[#EAECF0] 
                         flex flex-col gap-2`}
                     >
-                        <p className="text-xl md:text-2xl font-semibold">
+                        <p className="text-xl sm:text-2xl font-semibold">
                             What would you like to bring to our attention?
                         </p>
-                        <p className="text-xs md:text-sm text-[#555B64]">
+                        <p className="text-xs sm:text-sm text-[#555B64]">
                             Kindly fill the details below to submit.
                         </p>
                     </div>
@@ -258,7 +258,7 @@ export default function FeedbackForm(
                     </form>
 
                     {/* Buttons */}
-                     <div className={`py-5 md:py-[1.75rem] px-6 rounded-b-2xl 
+                     <div className={`py-5 sm:py-[1.75rem] px-6 rounded-b-2xl 
                         w-full bg-white border-t border-t-[#EAECF0] 
                         flex gap-[.625rem]`}>
                         <button 
@@ -269,7 +269,7 @@ export default function FeedbackForm(
                         </button>
                         <button 
                             form="feedbackForm" 
-                            className={`w-full rounded-4xl px-6 py-3 md:py-[.875rem] text-white font-semibold
+                            className={`w-full rounded-4xl px-6 py-3 sm:py-[.875rem] text-white font-semibold
                                 flex gap-2 items-center justify-center
                                 ${isFormValid ? 'bg-[#006D79]' : 'bg-[#9FDCE1]'}
                             `}

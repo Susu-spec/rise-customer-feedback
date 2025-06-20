@@ -69,7 +69,7 @@ export default function FeedbackList() {
     return (
         <>
             <div className="w-full flex flex-col gap-4">
-                <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center md:justify-between">
                     <div className="w-full flex flex-col items-start gap-4 md:flex-row md:items-center">
                         <div className="flex items-center justify-start gap-[.688rem]">
                             {filterButtons.map(({ text }, index) => (
@@ -77,8 +77,8 @@ export default function FeedbackList() {
                                     key={index} 
                                     onClick={() => setActiveTab(text)}
                                     className={
-                                        `py-[.375rem] px-2 md:px-3 rounded-md text-xs 
-                                        md:text-sm border !cursor-pointer
+                                        `py-[.375rem] px-2 lg:px-3 rounded-md text-xs 
+                                        lg:text-sm border !cursor-pointer
                                         ${activeTab === text ? 
                                         'text-[#006D79] border-[#9FDCE1] bg-[#EDFFFF]' : 
                                         'border-[#EAECF0] text-black bg-[#F9FAFB]'}`
@@ -102,16 +102,16 @@ export default function FeedbackList() {
                                 type="text"
                                 placeholder="Search feedback..."
                                 value={searchTerm}
-                                onChange={(e) => {setSearchTerm(e.target.value); console.log(paginatedFeedback)}}
-                                className="rounded-xl w-full border focus:outline-none border-none pl-4 text-sm md:text-base"
+                                onChange={(e) => {setSearchTerm(e.target.value)}}
+                                className="rounded-xl w-full border focus:outline-none border-none pl-4 text-sm lg:text-base"
                         />
                         </div>
                     </div>
                     <button 
                         onClick={handleOpen}
-                        className="bg-[#006D79] px-6 py-2 md:py-[.875rem] flex gap-2 items-center rounded-4xl w-full max-w-fit">
+                        className="bg-[#006D79] px-6 py-2 lg:py-[.875rem] flex gap-2 items-center rounded-4xl w-full max-w-fit">
                             <RiAddLine size={24} color="white"/>
-                            <span className="text-white text-sm md:text-base font-semibold whitespace-nowrap !cursor-pointer w-full">
+                            <span className="text-white text-sm lg:text-base font-semibold whitespace-nowrap !cursor-pointer w-full">
                                 Submit new feedback
                             </span>
                     </button>  
@@ -121,7 +121,7 @@ export default function FeedbackList() {
                 <div className="flex flex-col gap-4">
                     <div 
                         key={`${activeTab}-${currentPage}`}
-                        className="grid grid-cols-1 md:grid-cols-4 gap-5 jusitify-between animate fade-in"
+                        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 jusitify-between animate fade-in"
                     >
                         <>
                             {loading && 

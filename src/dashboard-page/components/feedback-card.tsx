@@ -33,20 +33,20 @@ export default function FeedbackCard({
                 >
                     {avatarInitials(name)}
                 </div>
-                <p className="font-medium text-black text-sm md:text-base truncate max-w-[20rem] capitalize">
+                <p className="font-medium text-black text-sm lg:text-base truncate max-w-[20rem] capitalize">
                     {name}
                 </p>
             </div>
             <div className="w-full flex items-center gap-2 py-[.375rem]">
                 <img src={emailIcon} alt="Email logo" />
-                <p className="text-[#555B64] text-xs md:text-sm truncate max-w-[20rem]">
+                <p className="text-[#555B64] text-xs lg:text-sm truncate max-w-[20rem]">
                     {email}
                 </p>
             </div>
             {number && 
                 <div className="w-full flex items-center gap-2 py-[.375rem]">
                     <img src={phoneIcon} alt="Phone logo" />
-                    <p className="text-[#555B64] text-xs md:text-sm">
+                    <p className="text-[#555B64] text-xs lg:text-sm">
                         {number}
                     </p>
                 </div>
@@ -54,10 +54,10 @@ export default function FeedbackCard({
             <div className="w-full flex items-start gap-2 py-[.375rem]">
                 <img src={reportIcon} alt="Report logo" />
                 <div className="flex flex-col gap-1">
-                    <p className="text-black font-medium text-xs md:text-sm">
+                    <p className="text-black font-medium text-xs lg:text-sm">
                         {setType(type)}
                     </p>
-                    <p className="text-[#555B64] text-xs md:text-sm">
+                    <p className="text-[#555B64] text-xs lg:text-sm">
                         {message}
                     </p>
                 </div>  
